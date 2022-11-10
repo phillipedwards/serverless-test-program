@@ -1,3 +1,2 @@
 config:
-  aws:profile: pulumi-ce
   aws:region: us-west-2
