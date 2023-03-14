@@ -2,11 +2,15 @@ import * as pulumi from "@pulumi/pulumi";
 import * as awsx from "@pulumi/awsx";
 import * as aws from "@pulumi/aws";
 
-
 import { ServerlessComponent } from "./serverless";
 
 export = async () => {
-
+    const awsProvider = new aws.Provider("aws-provider", {
+        accessKey: process.env["AWS_ACCESS_KEY_ID"],
+        secretKey: process.env["AWS_SECRET_ACCESS_KEY"],
+        token: process.env["AWS_SESSION_TOKEN"],
+    });
+    
     for (let i = 0; i < 2; i++) {
         new ServerlessComponent(`serverless-comp-${i}`, {
             tags: {
@@ -14,7 +18,7 @@ export = async () => {
                 Stack: pulumi.getStack(),
                 Component: `serverless-${i}`
             }    
-        })
+        }, { provider: awsProvider})
     }
 
     return {
