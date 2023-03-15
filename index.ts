@@ -9,8 +9,9 @@ export = async () => {
         accessKey: process.env["AWS_ACCESS_KEY_ID"],
         secretKey: process.env["AWS_SECRET_ACCESS_KEY"],
         token: process.env["AWS_SESSION_TOKEN"],
+        region: <aws.Region>process.env["AWS_REGION"],
     });
-    
+
     for (let i = 0; i < 2; i++) {
         new ServerlessComponent(`serverless-comp-${i}`, {
             tags: {
