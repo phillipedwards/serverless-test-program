@@ -5,10 +5,11 @@ import * as aws from "@pulumi/aws";
 import { ServerlessComponent } from "./serverless";
 
 export = async () => {
+    const id = pulumi.secret(process.env["AWS_ACCESS_KEY_ID"]!);
     const awsProvider = new aws.Provider("aws-provider", {
-        accessKey: process.env["AWS_ACCESS_KEY_ID"],
-        secretKey: process.env["AWS_SECRET_ACCESS_KEY"],
-        token: process.env["AWS_SESSION_TOKEN"],
+        accessKey: pulumi.secret(process.env["AWS_ACCESS_KEY_ID"]!),
+        secretKey: pulumi.secret(process.env["AWS_SECRET_ACCESS_KEY"]!),
+        token: pulumi.secret(process.env["AWS_SESSION_TOKEN"]!),
         region: <aws.Region>process.env["AWS_REGION"],
     });
 
